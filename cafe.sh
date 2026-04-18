@@ -38,7 +38,7 @@ for arg in "$@"; do
   esac
 done
 
-killall caffeinate > /dev/null 2>&1 &
+killall caffeinate > /dev/null 2>&1
 
 if [ "$QUIET" = false ]; then
 echo "Going to the Cafe and picking up some coffee...."

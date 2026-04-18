@@ -5,6 +5,7 @@ ALLOW_DISPLAY_SLEEP=false
 show_help() {
   echo "Usage: $(basename "$0") [OPTIONS]"
   echo
+  echo "Cafe v1.0"
   echo "Prevent macOS from sleeping using caffeinate."
   echo
   echo "Options:"
@@ -31,13 +32,22 @@ for arg in "$@"; do
   esac
 done
 
-# Choose flags
+echo "Going to the Cafe and picking up some coffee...."
+
 if [ "$ALLOW_DISPLAY_SLEEP" = true ]; then
-  FLAGS="-isu"   # allow display sleep
+  FLAGS="-isu"
+  MODE="Display sleep: allowed"
 else
-  FLAGS="-disu"  # prevent display sleep
+  FLAGS="-disu"
+  MODE="Display sleep: prevented"
 fi
 
+echo "I have a coffee with the flavor of:"
+echo "\"$MODE\"."
+echo "What an odd flavor!"
+
+echo "Chugging the coffee down....."
 caffeinate $FLAGS > /dev/null 2>&1 &
 
-echo "Going to the Cafe and picking up some coffee...."
+echo "I am ready to go all day and all night long!"
+echo 'Kill the "caffeinate" command to regain sleeping ability!'

@@ -12,3 +12,4 @@ A simple, scriptable alternative to Amphetamine.
 ## Some notes
 
 * PID of current caffeinate instance always stored at "~/.cafe-pid"
+* Kills all other "caffeinate" instance as to not conflict our current one.

@@ -62,9 +62,13 @@ fi
 
 
 caffeinate $FLAGS > /dev/null 2>&1 &
+PID=$!
 
 if [ "$QUIET" = false ]; then
 printf "\n\n"
 echo "I am ready to go all day and all night long!"
 echo 'Kill the "caffeinate" command for me to regain sleeping ability!'
+echo "Process ID: $PID"
 fi
+
+echo "$PID" > ~/.cafe-pid

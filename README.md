@@ -6,3 +6,9 @@ A simple, scriptable alternative to Amphetamine.
 * A Simplified alternative.
 * Without GUI (CLI ONLY!)
 * Great for dev and AI workloads.
+* Warm and friendly
+* MIT Licensed!
+
+## Some notes
+
+* PID of current caffeinate instance always stored at "~/.cafe-pid"

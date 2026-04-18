@@ -38,6 +38,8 @@ for arg in "$@"; do
   esac
 done
 
+killall caffeinate > /dev/null 2>&1 &
+
 if [ "$QUIET" = false ]; then
 echo "Going to the Cafe and picking up some coffee...."
 fi
@@ -60,7 +62,6 @@ printf "\n\n"
 echo "Chugging the coffee down....."
 fi
 
-
 caffeinate $FLAGS > /dev/null 2>&1 &
 PID=$!
 
@@ -68,7 +69,7 @@ if [ "$QUIET" = false ]; then
 printf "\n\n"
 echo "I am ready to go all day and all night long!"
 echo 'Kill the "caffeinate" command for me to regain sleeping ability!'
-echo "Process ID: $PID"
+echo "Process ID: $PID (will be stored at \"~/.cafe-pid\")!"
 fi
 
 echo "$PID" > ~/.cafe-pid

@@ -11,7 +11,7 @@ show_help() {
   echo "Prevent macOS from sleeping using caffeinate."
   echo
   echo "Options:"
-  echo "  -ads,--allow-display-sleep   Allow the display to sleep while keeping the system awake"
+  echo "  -D,--allow-display-sleep   Allow the display to sleep while keeping the system awake"
   echo "  -h,--help              Show this help message and exit"
   echo "-q,--quiet,--no-banner suppresses informational output but still prints errors to stderr."
   echo
@@ -20,7 +20,7 @@ show_help() {
 # Parse arguments
 for arg in "$@"; do
   case $arg in
-    -ads|--allow-display-sleep)
+    -D|--allow-display-sleep)
       ALLOW_DISPLAY_SLEEP=true
       ;;
     -h|--help)

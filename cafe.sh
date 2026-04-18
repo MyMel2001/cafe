@@ -19,7 +19,7 @@ show_help() {
 # Parse arguments
 for arg in "$@"; do
   case $arg in
-    -nds|--allow-display-sleep)
+    -ads|--allow-display-sleep)
       ALLOW_DISPLAY_SLEEP=true
       ;;
     -h|--help)

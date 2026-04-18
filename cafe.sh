@@ -42,17 +42,14 @@ else
   FLAGS="-disu"
   MODE="Display sleep: prevented"
 fi
-echo.
-echo.
+printf "\n"
 echo "I got a coffee with the flavor of:"
 echo "\"$MODE\"."
-echo.
+printf "\n"
 echo "What an odd flavor!"
-echo.
-echo.
+printf "\n\n"
 echo "Chugging the coffee down....."
 caffeinate $FLAGS > /dev/null 2>&1 &
-echo.
-echo.
+printf "\n\n"
 echo "I am ready to go all day and all night long!"
 echo 'Kill the "caffeinate" command for me to regain sleeping ability!'

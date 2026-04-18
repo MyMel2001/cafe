@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ALLOW_DISPLAY_SLEEP=false
+QUIET=false
 VERSION="v1.0"
 
 show_help() {
@@ -18,12 +19,15 @@ show_help() {
 # Parse arguments
 for arg in "$@"; do
   case $arg in
-    --allow-display-sleep)
+    -nds|--allow-display-sleep)
       ALLOW_DISPLAY_SLEEP=true
       ;;
     -h|--help)
       show_help
       exit 0
+      ;;
+    -q|--quiet|--no-banner)
+      QUIET=true
       ;;
     *)
       echo "Unknown option: $arg"
@@ -33,7 +37,9 @@ for arg in "$@"; do
   esac
 done
 
+if [ "$QUIET" = false ]; then
 echo "Going to the Cafe and picking up some coffee...."
+fi
 
 if [ "$ALLOW_DISPLAY_SLEEP" = true ]; then
   FLAGS="-isu"
@@ -42,6 +48,8 @@ else
   FLAGS="-disu"
   MODE="Display sleep: prevented"
 fi
+
+if [ "$QUIET" = false ]; then
 printf "\n"
 echo "I got a coffee with the flavor of:"
 echo "\"$MODE\"."
@@ -49,7 +57,13 @@ printf "\n"
 echo "What an odd flavor!"
 printf "\n\n"
 echo "Chugging the coffee down....."
+fi
+
+
 caffeinate $FLAGS > /dev/null 2>&1 &
+
+if [ "$QUIET" = false ]; then
 printf "\n\n"
 echo "I am ready to go all day and all night long!"
 echo 'Kill the "caffeinate" command for me to regain sleeping ability!'
+fi

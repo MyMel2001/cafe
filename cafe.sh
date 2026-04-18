@@ -1,11 +1,12 @@
 #!/bin/bash
 
 ALLOW_DISPLAY_SLEEP=false
+VERSION="v1.0"
 
 show_help() {
   echo "Usage: $(basename "$0") [OPTIONS]"
   echo
-  echo "Cafe v1.0"
+  echo "Cafe $VERSION"
   echo "Prevent macOS from sleeping using caffeinate."
   echo
   echo "Options:"

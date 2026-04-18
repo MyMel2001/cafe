@@ -11,8 +11,9 @@ show_help() {
   echo "Prevent macOS from sleeping using caffeinate."
   echo
   echo "Options:"
-  echo "  --allow-display-sleep   Allow the display to sleep while keeping the system awake"
-  echo "  -h, --help              Show this help message and exit"
+  echo "  -ads,--allow-display-sleep   Allow the display to sleep while keeping the system awake"
+  echo "  -h,--help              Show this help message and exit"
+  echo "-q,--quiet,--no-banner suppresses informational output but still prints errors to stderr."
   echo
 }
 

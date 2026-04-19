@@ -1,50 +1,57 @@
 #!/bin/bash
 
-ALLOW_DISPLAY_SLEEP=false
 QUIET=false
-VERSION="v1.0"
+DISPLAY_SLEEP=false
+FLAGS="-disu"
+MODE="Display sleep: prevented"
+PIDFILE="$HOME/.cafe-pid"
 
-show_help() {
-  echo "Usage: $(basename "$0") [OPTIONS]"
-  echo
-  echo "Cafe $VERSION"
-  echo "Prevent macOS from sleeping using caffeinate."
-  echo
-  echo "Options:"
-  echo "  -D,--allow-display-sleep   Allow the display to sleep while keeping the system awake"
-  echo "  -h,--help              Show this help message and exit"
-  echo "  -q,--quiet,--no-banner suppresses informational output but still prints errors to stderr."
-  echo
+say() {
+  [[ "$QUIET" == false ]] || return 0
+  printf "%s\n" "$1"
 }
 
-# Parse arguments
-for arg in "$@"; do
-  case $arg in
+show_help() {
+  say "Usage: $(basename "$0") [OPTIONS]"
+  say "Cafe - Prevent macOS from sleeping"
+  say "Options:"
+  say "  -D, --allow-display-sleep   Allow display sleep"
+  say "  -h, --help                 Show help"
+  say "  -k, --kill                 Stop caffeinate and exit"
+  say "  -q, --quiet, --no-banner   Suppress output"
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
     -D|--allow-display-sleep)
-      ALLOW_DISPLAY_SLEEP=true
+      DISPLAY_SLEEP=true
+      MODE="Display sleep: allowed"
       ;;
     -h|--help)
       show_help
+      exit 0
+      ;;
+    -k|--kill)
+      say "☕ Closing up shop..."
+      killall caffeinate 2>/dev/null
       exit 0
       ;;
     -q|--quiet|--no-banner)
       QUIET=true
       ;;
     *)
-      echo "Unknown option: $arg"
-      echo "Try '--help' for more information."
+      say "Unknown option: $1"
+      show_help
       exit 1
       ;;
   esac
+  shift
 done
 
-killall caffeinate > /dev/null 2>&1
+killall caffeinate 2>/dev/null
+say "☕ Cafe booting. . ."
 
-if [ "$QUIET" = false ]; then
-echo "Going to the Cafe and picking up some coffee...."
-fi
-
-if [ "$ALLOW_DISPLAY_SLEEP" = true ]; then
+if [[ "$DISPLAY_SLEEP" == true ]]; then
   FLAGS="-isu"
   MODE="Display sleep: allowed"
 else
@@ -52,24 +59,12 @@ else
   MODE="Display sleep: prevented"
 fi
 
-if [ "$QUIET" = false ]; then
-printf "\n"
-echo "I got a coffee with the flavor of:"
-echo "\"$MODE\"."
-printf "\n"
-echo "What an odd flavor!"
-printf "\n\n"
-echo "Chugging the coffee down....."
-fi
+say "Brewing: $MODE"
+say "Flavor profile: Strong and black."
 
 caffeinate $FLAGS > /dev/null 2>&1 &
 PID=$!
+say "Chugging. PID: $PID. Store at: $PIDFILE"
 
-if [ "$QUIET" = false ]; then
-printf "\n\n"
-echo "I am ready to go all day and all night long!"
-echo 'Kill the "caffeinate" command for me to regain sleeping ability!'
-echo "Process ID: $PID (will be stored at \"~/.cafe-pid\")!"
-fi
-
-echo "$PID" > ~/.cafe-pid
+echo "$PID" > "$PIDFILE"
+say "Ready for the grind, partner."
